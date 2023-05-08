@@ -27,8 +27,6 @@ namespace Randolf.WordToolkit
         private void SearchAndInsertField()
         {
             FieldPool.LoadFieldDictionary();
-            foreach (var field in FieldPool.FieldResult) Debug.WriteLine($"{CommonUtils.FormatField(field)}");
-
             var searchDialog = new SearchDialog(FieldPool);
             searchDialog.ShowDialog();
         }
