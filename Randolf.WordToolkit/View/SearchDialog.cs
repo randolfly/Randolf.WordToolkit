@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,15 @@ namespace Randolf.WordToolkit.View
 
 
             this.list_SearchResult.EndUpdate();
+        }
+
+        private void btn_InsertFields_Click(object sender, EventArgs e)
+        {
+            var selected = this.list_SearchResult.SelectedItems;
+            foreach (ListViewItem o in selected)
+            {
+                Debug.WriteLine(o.Text);
+            }
         }
     }
 }
