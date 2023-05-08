@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
 using Randolf.WordToolkit.Model;
 using Randolf.WordToolkit.Util;
 
@@ -42,11 +43,16 @@ namespace Randolf.WordToolkit.View
 
         private void btn_InsertFields_Click(object sender, EventArgs e)
         {
-            var selected = this.list_SearchResult.SelectedItems;
-            foreach (ListViewItem o in selected)
-            {
-                Debug.WriteLine(o.Text);
-            }
+            var selectedText =
+                this.list_SearchResult.SelectedItems
+                    .Cast<ListViewItem>()
+                    .Select(s => s.Text)
+                    .ToList();
+            var selectedFields = FieldPool.GetFieldsFromText(selectedText);
+            var selectedRanges = FieldPool.GetRangesFromField(selectedFields);
+            var bookmarkNames = FieldPool.GetBookmarkNames(selectedText);
+
+            FieldPool.AddBookmarks(selectedRanges, bookmarkNames);
         }
     }
 }
