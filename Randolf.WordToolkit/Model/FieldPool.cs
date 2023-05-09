@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FuzzySharp;
 using Microsoft.Office.Interop.Word;
 using Randolf.WordToolkit.Util;
 
@@ -25,13 +26,21 @@ namespace Randolf.WordToolkit.Model
                     .ToList());
         }
 
+        /// <summary>
+        ///     use fuzzy search method to search fields
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         public List<Field> SearchFields(string searchText)
         {
-            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
-            var splitStringList = searchText.Split(delimiterChars).ToList();
             return FieldResult
-                .Where(f => ContainString(CommonUtils.FormatField(f), splitStringList))
+                .OrderByDescending(f => GetSimilarityScore(searchText, f))
                 .ToList();
+        }
+
+        public int GetSimilarityScore(string searchText, Field field)
+        {
+            return Fuzz.PartialTokenSetRatio(searchText, CommonUtils.FormatField(field));
         }
 
         public List<Field> GetFieldsFromText(List<string> stringList)
@@ -41,13 +50,6 @@ namespace Randolf.WordToolkit.Model
                 .ToList();
         }
 
-        private bool ContainString(string targetText, List<string> sliceStringList)
-        {
-            foreach (var str in sliceStringList)
-                if (targetText.Contains(str))
-                    return true;
-            return false;
-        }
 
         /// <summary>
         ///     from selected fields get ranges
