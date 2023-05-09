@@ -17,37 +17,28 @@ namespace Randolf.WordToolkit.View
     public partial class SearchDialog : Form
     {
         public FieldPool FieldPool { get; }
+        private BindingList<string> SearchTextResult { get; set; } = new BindingList<string>();
 
         public SearchDialog(FieldPool fieldPool)
         {
             FieldPool = fieldPool;
             InitializeComponent();
+            this.list_SearchResult.DataSource = SearchTextResult;
         }
 
         private void txt_SearchInput_TextChanged(object sender, EventArgs e)
         {
             var searchResult = FieldPool.SearchFields(CommonUtils.FormatString(this.txt_SearchInput.Text));
-            this.list_SearchResult.Items.Clear();
-            this.list_SearchResult.View = System.Windows.Forms.View.List;
-            this.list_SearchResult.BeginUpdate();
+            SearchTextResult.Clear();
             foreach (var field in searchResult)
             {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = CommonUtils.FormatField(field);
-                this.list_SearchResult.Items.Add(lvi);
+                SearchTextResult.Add(CommonUtils.FormatField(field));
             }
-
-
-            this.list_SearchResult.EndUpdate();
         }
 
         private void btn_InsertFields_Click(object sender, EventArgs e)
         {
-            var selectedText =
-                this.list_SearchResult.SelectedItems
-                    .Cast<ListViewItem>()
-                    .Select(s => s.Text)
-                    .ToList();
+            var selectedText = this.list_SearchResult.SelectedItems.Cast<string>().ToList();
             var selectedFields = FieldPool.GetFieldsFromText(selectedText);
             var selectedRanges = FieldPool.GetRangesFromField(selectedFields);
             var bookmarkNames = FieldPool.GetBookmarkNames(selectedText);
