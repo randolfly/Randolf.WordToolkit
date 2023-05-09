@@ -8,15 +8,21 @@ namespace Randolf.WordToolkit.Model
     public class FieldPool
     {
         private const int RangeMoveLength = 4;
-        public List<Field> FieldResult { get; private set; }
+
+        public List<Field> FieldResult { get; } = new List<Field>();
+        private List<CaptionLabel> CaptionLabels { get; set; }
 
         public void LoadFieldDictionary()
         {
-            FieldResult = Globals.ThisAddIn.Application.ActiveDocument.Fields.Cast<Field>()
-                .Where(f => !f.Code.Text.Trim().StartsWith("REF")) // remove reference fields
-                .GroupBy(CommonUtils.FormatField)
-                .Select(f => f.FirstOrDefault())
-                .ToList();
+            CaptionLabels = LoadCaptionLabels();
+            FieldResult.Clear();
+            var captionLabelNames = CaptionLabels.Select(x => x.Name).ToList();
+            foreach (var captionLabelName in captionLabelNames)
+                FieldResult.AddRange(Globals.ThisAddIn.Application.ActiveDocument.Fields.Cast<Field>()
+                    .Where(f => f.Code.Text.Trim().StartsWith($"SEQ {captionLabelName}")) // remove reference fields
+                    .GroupBy(CommonUtils.FormatField)
+                    .Select(f => f.FirstOrDefault())
+                    .ToList());
         }
 
         public List<Field> SearchFields(string searchText)
@@ -34,21 +40,17 @@ namespace Randolf.WordToolkit.Model
                 .Where(f => stringList.Contains(CommonUtils.FormatField(f)))
                 .ToList();
         }
-        
+
         private bool ContainString(string targetText, List<string> sliceStringList)
         {
-            foreach (string str in sliceStringList)
-            {
+            foreach (var str in sliceStringList)
                 if (targetText.Contains(str))
-                {
                     return true;
-                }
-            }
             return false;
         }
 
         /// <summary>
-        /// from selected fields get ranges
+        ///     from selected fields get ranges
         /// </summary>
         /// <param name="selectedFields"></param>
         /// <returns></returns>
@@ -87,12 +89,35 @@ namespace Randolf.WordToolkit.Model
                     var bookmark = ranges[i].Bookmarks.Add(bookmarkNames[i], ranges[i]);
                     bookmarkList.Add(bookmark);
                 }
+
             // insert bookmark
-            foreach (string bookmark in bookmarkNames)
-            {
-                Globals.ThisAddIn.Application.Selection.Fields.Add(Globals.ThisAddIn.Application.Selection.Range, WdFieldType.wdFieldRef, bookmark);
-            }
+            foreach (var bookmark in bookmarkNames)
+                Globals.ThisAddIn.Application.Selection.Fields.Add(Globals.ThisAddIn.Application.Selection.Range,
+                    WdFieldType.wdFieldRef, bookmark);
             return bookmarkList;
+        }
+
+        /// <summary>
+        ///     return the all captions
+        /// </summary>
+        /// <param name="selectNonBuiltin">if only return non-builtin caption types</param>
+        /// <returns>CaptionLabel list</returns>
+        public List<CaptionLabel> LoadCaptionLabels(bool selectNonBuiltin = true)
+        {
+            var captionList = Globals.ThisAddIn.Application.CaptionLabels;
+            var targetCaptionLists = new List<CaptionLabel>();
+            foreach (CaptionLabel captionLabel in captionList)
+                if (selectNonBuiltin)
+                {
+                    if (captionLabel.BuiltIn is false) targetCaptionLists.Add(captionLabel);
+                }
+                else
+                {
+                    targetCaptionLists.Add(captionLabel);
+                }
+
+            // Debug.WriteLine($"{captionLabel.BuiltIn}: {captionLabel.Name}");
+            return targetCaptionLists;
         }
     }
 }

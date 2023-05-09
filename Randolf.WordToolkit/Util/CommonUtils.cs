@@ -10,33 +10,6 @@ namespace Randolf.WordToolkit.Util
 {
     public static class CommonUtils
     {
-        /// <summary>
-        /// return the all captions
-        /// </summary>
-        /// <param name="selectNonBuiltin">if only return non-builtin caption types</param>
-        /// <returns>CaptionLabel list</returns>
-        public static List<CaptionLabel> LoadCaptionLabels(bool selectNonBuiltin = true)
-        {
-            var captionList = Globals.ThisAddIn.Application.CaptionLabels;
-            List<CaptionLabel> targetCaptionLists = new List<CaptionLabel>();
-            foreach (CaptionLabel captionLabel in captionList)
-            {
-                if (selectNonBuiltin)
-                {
-                    if (captionLabel.BuiltIn is false)
-                    {
-                        targetCaptionLists.Add(captionLabel);
-                    }
-                }
-                else
-                {
-                    targetCaptionLists.Add(captionLabel);
-                }
-                // Debug.WriteLine($"{captionLabel.BuiltIn}: {captionLabel.Name}");
-            }
-
-            return targetCaptionLists;
-        }
 
         /// <summary>
         /// format the get string
@@ -45,7 +18,7 @@ namespace Randolf.WordToolkit.Util
         /// <returns>formatted string</returns>
         public static string FormatString(string text)
         {
-            char[] trimChars = { ' ', '\n', '\r'};
+            char[] trimChars = { ' ', '\n', '\r', '\t'};
             return text.Trim(trimChars).Replace('\u001e', '-');
         }
 
