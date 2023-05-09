@@ -40,7 +40,9 @@
             this.txt_SearchInput.Name = "txt_SearchInput";
             this.txt_SearchInput.Size = new System.Drawing.Size(423, 35);
             this.txt_SearchInput.TabIndex = 0;
-            this.txt_SearchInput.TextChanged += new System.EventHandler(this.txt_SearchInput_TextChanged);
+            // TODO USE REACTIVE PRGRAMMING TO MAKE RESPONSIVE RESULT
+            this.txt_SearchInput.MouseLeave += new System.EventHandler(this.txt_SearchInput_TextChanged);
+            // this.txt_SearchInput.TextChanged += new System.EventHandler(this.txt_SearchInput_TextChanged);
             // 
             // btn_InsertFields
             // 
