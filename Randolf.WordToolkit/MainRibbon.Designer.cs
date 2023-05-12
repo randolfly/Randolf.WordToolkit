@@ -34,25 +34,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tab1 = this.Factory.CreateRibbonTab();
-            this.group1 = this.Factory.CreateRibbonGroup();
+            this.tab_randolfToolkit = this.Factory.CreateRibbonTab();
+            this.group_captionManage = this.Factory.CreateRibbonGroup();
             this.btn_ShowCaption = this.Factory.CreateRibbonButton();
-            this.tab1.SuspendLayout();
-            this.group1.SuspendLayout();
+            this.tab_picManage = this.Factory.CreateRibbonGroup();
+            this.edt_picWidth = this.Factory.CreateRibbonEditBox();
+            this.edt_picHeight = this.Factory.CreateRibbonEditBox();
+            this.btn_updatePic = this.Factory.CreateRibbonButton();
+            this.tab_randolfToolkit.SuspendLayout();
+            this.group_captionManage.SuspendLayout();
+            this.tab_picManage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tab1
+            // tab_randolfToolkit
             // 
-            this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
-            this.tab1.Groups.Add(this.group1);
-            this.tab1.Label = "TabAddIns";
-            this.tab1.Name = "tab1";
+            this.tab_randolfToolkit.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
+            this.tab_randolfToolkit.Groups.Add(this.group_captionManage);
+            this.tab_randolfToolkit.Groups.Add(this.tab_picManage);
+            this.tab_randolfToolkit.Label = "RandolfToolkit";
+            this.tab_randolfToolkit.Name = "tab_randolfToolkit";
             // 
-            // group1
+            // group_captionManage
             // 
-            this.group1.Items.Add(this.btn_ShowCaption);
-            this.group1.Label = "group1";
-            this.group1.Name = "group1";
+            this.group_captionManage.Items.Add(this.btn_ShowCaption);
+            this.group_captionManage.Label = "Caption Manage";
+            this.group_captionManage.Name = "group_captionManage";
             // 
             // btn_ShowCaption
             // 
@@ -60,25 +66,59 @@
             this.btn_ShowCaption.Name = "btn_ShowCaption";
             this.btn_ShowCaption.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_ShowCaption_Click);
             // 
+            // tab_picManage
+            // 
+            this.tab_picManage.Items.Add(this.edt_picWidth);
+            this.tab_picManage.Items.Add(this.edt_picHeight);
+            this.tab_picManage.Items.Add(this.btn_updatePic);
+            this.tab_picManage.Label = "Pic Manage";
+            this.tab_picManage.Name = "tab_picManage";
+            // 
+            // edt_picWidth
+            // 
+            this.edt_picWidth.Label = "Width";
+            this.edt_picWidth.Name = "edt_picWidth";
+            this.edt_picWidth.Text = null;
+            this.edt_picWidth.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edt_picWidth_TextChanged);
+            // 
+            // edt_picHeight
+            // 
+            this.edt_picHeight.Label = "Height";
+            this.edt_picHeight.Name = "edt_picHeight";
+            this.edt_picHeight.Text = null;
+            this.edt_picHeight.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edt_picHeight_TextChanged);
+            // 
+            // btn_updatePic
+            // 
+            this.btn_updatePic.Label = "Update Pic";
+            this.btn_updatePic.Name = "btn_updatePic";
+            this.btn_updatePic.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_updatePic_Click);
+            // 
             // MainRibbon
             // 
             this.Name = "MainRibbon";
             this.RibbonType = "Microsoft.Word.Document";
-            this.Tabs.Add(this.tab1);
+            this.Tabs.Add(this.tab_randolfToolkit);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.MainRibbon_Load);
-            this.tab1.ResumeLayout(false);
-            this.tab1.PerformLayout();
-            this.group1.ResumeLayout(false);
-            this.group1.PerformLayout();
+            this.tab_randolfToolkit.ResumeLayout(false);
+            this.tab_randolfToolkit.PerformLayout();
+            this.group_captionManage.ResumeLayout(false);
+            this.group_captionManage.PerformLayout();
+            this.tab_picManage.ResumeLayout(false);
+            this.tab_picManage.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonTab tab_randolfToolkit;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group_captionManage;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_ShowCaption;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup tab_picManage;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox edt_picWidth;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_updatePic;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox edt_picHeight;
     }
 
     partial class ThisRibbonCollection

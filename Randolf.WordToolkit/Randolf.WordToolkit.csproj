@@ -166,6 +166,7 @@
       <DependentUpon>MainRibbon.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FieldPool.cs" />
+    <Compile Include="Model\PicStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -175,12 +176,6 @@
     </Compile>
     <Compile Include="View\SearchDialog.Designer.cs">
       <DependentUpon>SearchDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\TestDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\TestDialog.Designer.cs">
-      <DependentUpon>TestDialog.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainRibbon.resx">
       <DependentUpon>MainRibbon.cs</DependentUpon>
