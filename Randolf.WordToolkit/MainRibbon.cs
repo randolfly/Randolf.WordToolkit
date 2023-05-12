@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Ribbon;
@@ -45,11 +46,6 @@ namespace Randolf.WordToolkit
             PicStyle.Width = float.Parse(edt_picWidth.Text);
         }
 
-        private void edt_picHeight_TextChanged(object sender, RibbonControlEventArgs e)
-        {
-            PicStyle.Height = float.Parse(edt_picHeight.Text);
-        }
-
         private void btn_updatePic_Click(object sender, RibbonControlEventArgs e)
         {
             UpdatePictures();
@@ -60,14 +56,15 @@ namespace Randolf.WordToolkit
             var inlineShapes = Globals.ThisAddIn.Application.ActiveDocument.InlineShapes
                 .Cast<InlineShape>().ToList();
 
-            MessageBox.Show($@"pic width: {PicStyle.Width:##.00}
-pic height: {PicStyle.Height:##.000}
+            MessageBox.Show($@"
+pic width: {PicStyle.Width:##.00}
 pic number: {inlineShapes.Count}");
+
 
             inlineShapes.ForEach(shape =>
             {
+                Debug.WriteLine($"{shape.Width}, {shape.Height}");
                 shape.Width = PicStyle.Width;
-                shape.Height = PicStyle.Height;
             });
         }
 

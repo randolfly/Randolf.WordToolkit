@@ -39,7 +39,6 @@
             this.btn_ShowCaption = this.Factory.CreateRibbonButton();
             this.tab_picManage = this.Factory.CreateRibbonGroup();
             this.edt_picWidth = this.Factory.CreateRibbonEditBox();
-            this.edt_picHeight = this.Factory.CreateRibbonEditBox();
             this.btn_updatePic = this.Factory.CreateRibbonButton();
             this.tab_randolfToolkit.SuspendLayout();
             this.group_captionManage.SuspendLayout();
@@ -69,7 +68,6 @@
             // tab_picManage
             // 
             this.tab_picManage.Items.Add(this.edt_picWidth);
-            this.tab_picManage.Items.Add(this.edt_picHeight);
             this.tab_picManage.Items.Add(this.btn_updatePic);
             this.tab_picManage.Label = "Pic Manage";
             this.tab_picManage.Name = "tab_picManage";
@@ -78,15 +76,8 @@
             // 
             this.edt_picWidth.Label = "Width";
             this.edt_picWidth.Name = "edt_picWidth";
-            this.edt_picWidth.Text = null;
+            this.edt_picWidth.Text = PicStyle.Width.ToString();
             this.edt_picWidth.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edt_picWidth_TextChanged);
-            // 
-            // edt_picHeight
-            // 
-            this.edt_picHeight.Label = "Height";
-            this.edt_picHeight.Name = "edt_picHeight";
-            this.edt_picHeight.Text = null;
-            this.edt_picHeight.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edt_picHeight_TextChanged);
             // 
             // btn_updatePic
             // 
@@ -118,7 +109,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup tab_picManage;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox edt_picWidth;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_updatePic;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox edt_picHeight;
     }
 
     partial class ThisRibbonCollection
