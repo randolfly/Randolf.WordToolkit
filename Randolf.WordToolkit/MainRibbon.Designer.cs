@@ -76,7 +76,7 @@
             // 
             this.edt_picWidth.Label = "Width";
             this.edt_picWidth.Name = "edt_picWidth";
-            this.edt_picWidth.Text = PicStyle.Width.ToString();
+            this.edt_picWidth.Text = "12";
             this.edt_picWidth.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edt_picWidth_TextChanged);
             // 
             // btn_updatePic
