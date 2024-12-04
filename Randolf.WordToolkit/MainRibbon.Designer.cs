@@ -61,7 +61,7 @@
             // 
             // btn_ShowCaption
             // 
-            this.btn_ShowCaption.Label = "Show Captions";
+            this.btn_ShowCaption.Label = "Insert Caption";
             this.btn_ShowCaption.Name = "btn_ShowCaption";
             this.btn_ShowCaption.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_ShowCaption_Click);
             // 

@@ -8,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using Microsoft.Office.Interop.Word;
+
 using Randolf.WordToolkit.Model;
 using Randolf.WordToolkit.Util;
 
@@ -19,16 +21,15 @@ namespace Randolf.WordToolkit.View
         public FieldPool FieldPool { get; }
         private BindingList<string> SearchTextResult { get; set; } = new BindingList<string>();
 
-        public SearchDialog(FieldPool fieldPool)
-        {
+        public SearchDialog(FieldPool fieldPool) {
             FieldPool = fieldPool;
             InitializeComponent();
             this.list_SearchResult.DataSource = SearchTextResult;
         }
 
-        private void txt_SearchInput_TextChanged(object sender, EventArgs e)
-        {
-            var searchResult = FieldPool.SearchFields(CommonUtils.FormatString(this.txt_SearchInput.Text));
+        private void txt_SearchInput_TextChanged(object sender, EventArgs e) {
+            var searchResult = FieldPool
+                .SearchFields(CommonUtils.FormatString(this.txt_SearchInput.Text));
             SearchTextResult.Clear();
             foreach (var field in searchResult)
             {
@@ -36,14 +37,17 @@ namespace Randolf.WordToolkit.View
             }
         }
 
-        private void btn_InsertFields_Click(object sender, EventArgs e)
-        {
+        private void btn_InsertFields_Click(object sender, EventArgs e) {
             var selectedText = this.list_SearchResult.SelectedItems.Cast<string>().ToList();
             var selectedFields = FieldPool.GetFieldsFromText(selectedText);
             var selectedRanges = FieldPool.GetRangesFromField(selectedFields);
             var bookmarkNames = FieldPool.GetBookmarkNames(selectedText);
 
             FieldPool.AddBookmarks(selectedRanges, bookmarkNames);
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            FieldPool.LoadFieldDictionary();
         }
     }
 }

@@ -31,26 +31,25 @@
             this.txt_SearchInput = new System.Windows.Forms.TextBox();
             this.btn_InsertFields = new System.Windows.Forms.Button();
             this.list_SearchResult = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txt_SearchInput
             // 
-            this.txt_SearchInput.Location = new System.Drawing.Point(36, 44);
+            this.txt_SearchInput.Location = new System.Drawing.Point(13, 48);
             this.txt_SearchInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_SearchInput.Name = "txt_SearchInput";
-            this.txt_SearchInput.Size = new System.Drawing.Size(423, 35);
+            this.txt_SearchInput.Size = new System.Drawing.Size(403, 31);
             this.txt_SearchInput.TabIndex = 0;
-            // TODO USE REACTIVE PRGRAMMING TO MAKE RESPONSIVE RESULT
             this.txt_SearchInput.MouseLeave += new System.EventHandler(this.txt_SearchInput_TextChanged);
-            // this.txt_SearchInput.TextChanged += new System.EventHandler(this.txt_SearchInput_TextChanged);
             // 
             // btn_InsertFields
             // 
             this.btn_InsertFields.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btn_InsertFields.Location = new System.Drawing.Point(482, 44);
+            this.btn_InsertFields.Location = new System.Drawing.Point(424, 44);
             this.btn_InsertFields.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_InsertFields.Name = "btn_InsertFields";
-            this.btn_InsertFields.Size = new System.Drawing.Size(108, 35);
+            this.btn_InsertFields.Size = new System.Drawing.Size(68, 35);
             this.btn_InsertFields.TabIndex = 2;
             this.btn_InsertFields.Text = "Insert";
             this.btn_InsertFields.UseVisualStyleBackColor = true;
@@ -59,19 +58,32 @@
             // list_SearchResult
             // 
             this.list_SearchResult.FormattingEnabled = true;
-            this.list_SearchResult.ItemHeight = 28;
-            this.list_SearchResult.Location = new System.Drawing.Point(36, 103);
+            this.list_SearchResult.ItemHeight = 23;
+            this.list_SearchResult.Location = new System.Drawing.Point(13, 103);
             this.list_SearchResult.Name = "list_SearchResult";
             this.list_SearchResult.ScrollAlwaysVisible = true;
             this.list_SearchResult.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.list_SearchResult.Size = new System.Drawing.Size(554, 620);
+            this.list_SearchResult.Size = new System.Drawing.Size(558, 441);
             this.list_SearchResult.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.Location = new System.Drawing.Point(503, 45);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(68, 35);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Update";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SearchDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 28F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 761);
+            this.ClientSize = new System.Drawing.Size(599, 576);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.list_SearchResult);
             this.Controls.Add(this.btn_InsertFields);
             this.Controls.Add(this.txt_SearchInput);
@@ -90,5 +102,6 @@
         private System.Windows.Forms.TextBox txt_SearchInput;
         private System.Windows.Forms.Button btn_InsertFields;
         private System.Windows.Forms.ListBox list_SearchResult;
+        private System.Windows.Forms.Button button1;
     }
 }

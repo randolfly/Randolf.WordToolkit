@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Office.Interop.Word;
+using System.Text.RegularExpressions;
 
 namespace Randolf.WordToolkit.Util
 {
@@ -30,6 +31,18 @@ namespace Randolf.WordToolkit.Util
         public static string FormatField(Field field)
         {
             return FormatString(field.Result.Sentences.First.Text);
+        }
+
+        /// <summary>
+        /// Get the label of a field. 
+        /// Example: "Figure 1.1 example structure" -> " 1.1"
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string GetFieldLabel(string input) {
+            var match = Regex.Match(input, @"([^\d\s]+(?<id>\s+\d+[-.]?\d*))");
+            var id = match.Groups["id"];
+            return id.Value;
         }
 
         #region Hash Calculation

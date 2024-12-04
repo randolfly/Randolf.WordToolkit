@@ -33,7 +33,7 @@ namespace Randolf.WordToolkit
         {
             FieldPool.LoadFieldDictionary();
             var searchDialog = new SearchDialog(FieldPool);
-            searchDialog.ShowDialog();
+            searchDialog.Show();
         }
 
         #endregion

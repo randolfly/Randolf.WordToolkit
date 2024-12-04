@@ -8,8 +8,6 @@ namespace Randolf.WordToolkit.Model
 {
     public class FieldPool
     {
-        private const int RangeMoveLength = 4;
-
         public List<Field> FieldResult { get; } = new List<Field>();
         private List<CaptionLabel> CaptionLabels { get; set; }
 
@@ -62,7 +60,13 @@ namespace Randolf.WordToolkit.Model
                 .Select(f => f.Result.Sentences.First)
                 .Select(r => r.Words.First)
                 .ToList();
-            selectedRanges.ForEach(r => r.MoveEnd(WdUnits.wdWord, RangeMoveLength));
+            for (var i=0;i< selectedRanges.Count;i++)
+            {
+                var fieldLabel = CommonUtils.GetFieldLabel(
+                    CommonUtils.FormatString(
+                        selectedFields[i].Result.Sentences.First.Text));
+                selectedRanges[i].MoveEnd(WdUnits.wdCharacter, fieldLabel.Length);
+            }
             return selectedRanges;
         }
 
