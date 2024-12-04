@@ -40,9 +40,11 @@ namespace Randolf.WordToolkit.View
         private void btn_InsertFields_Click(object sender, EventArgs e) {
             var selectedText = this.list_SearchResult.SelectedItems.Cast<string>().ToList();
             var selectedFields = FieldPool.GetFieldsFromText(selectedText);
+
+            // add 2 bookmark to remove space between labels
+            // e.g. : Fig 1.1 example -> "Fig", "1.1"
             var selectedRanges = FieldPool.GetRangesFromField(selectedFields);
             var bookmarkNames = FieldPool.GetBookmarkNames(selectedText);
-
             FieldPool.AddBookmarks(selectedRanges, bookmarkNames);
         }
 

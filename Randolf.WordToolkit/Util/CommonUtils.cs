@@ -35,14 +35,17 @@ namespace Randolf.WordToolkit.Util
 
         /// <summary>
         /// Get the label of a field. 
-        /// Example: "Figure 1.1 example structure" -> " 1.1"
+        /// Example: "Figure 1.1 example structure" -> ["Figure", " ", "1.1"]
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static string GetFieldLabel(string input) {
-            var match = Regex.Match(input, @"([^\d\s]+(?<id>\s+\d+[-.]?\d*))");
-            var id = match.Groups["id"];
-            return id.Value;
+        public static List<string> GetFieldLabel(string input) {
+            var match = Regex.Match(input, @"((?<name>[^\d\s]+)(?<bar>\s+)(?<id>\d+[-.]?\d*))");
+            var label_list = new List<string>();
+            label_list.Add(match.Groups["name"].Value);
+            label_list.Add(match.Groups["bar"].Value);
+            label_list.Add(match.Groups["id"].Value);
+            return label_list;
         }
 
         #region Hash Calculation

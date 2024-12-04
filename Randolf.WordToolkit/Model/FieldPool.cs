@@ -60,21 +60,43 @@ namespace Randolf.WordToolkit.Model
                 .Select(f => f.Result.Sentences.First)
                 .Select(r => r.Words.First)
                 .ToList();
+            var resultRange = new List<Range>(selectedFields.Count*2);
             for (var i=0;i< selectedRanges.Count;i++)
             {
-                var fieldLabel = CommonUtils.GetFieldLabel(
+                var fieldLabels = CommonUtils.GetFieldLabel(
                     CommonUtils.FormatString(
                         selectedFields[i].Result.Sentences.First.Text));
-                selectedRanges[i].MoveEnd(WdUnits.wdCharacter, fieldLabel.Length);
+                var range1 = selectedRanges[i];
+                var range2 = selectedRanges[i].Duplicate;
+                range2.MoveEnd(WdUnits.wdCharacter, 
+                    fieldLabels[1].Length + fieldLabels[2].Length);
+                range2.MoveStart(WdUnits.wdCharacter, 
+                    (fieldLabels[0].Length + fieldLabels[1].Length));
+                
+                resultRange.Add(range1);
+                resultRange.Add(range2);
             }
-            return selectedRanges;
+            return resultRange;
         }
 
-        public static List<string> GetBookmarkNames(List<string> selectedText)
-        {
-            return CommonUtils.CalculateHash(selectedText)
-                .Select(s => $"_Ref{s}") // make bookmark as hidden
-                .ToList();
+        /// <summary>
+        /// generate bookmark names
+        /// </summary>
+        /// <param name="selectedText">label field name</param>
+        /// <returns></returns>
+        public static List<string> GetBookmarkNames(List<string> selectedText) {
+            var bookmarkNames = new List<string>(selectedText.Count * 2);
+            var hashList = CommonUtils.CalculateHash(selectedText);
+            for (int i = 0; i < hashList.Count; i++)
+            {
+                // Get the first 6 characters of the hash
+                var hashPrefix = hashList[i].Substring(0, 6); 
+                var text1 = $"_Ref{hashPrefix}1";
+                var text2 = $"_Ref{hashPrefix}2";
+                bookmarkNames.Add(text1);
+                bookmarkNames.Add(text2);
+            }
+            return bookmarkNames;
         }
 
         /// <summary>
@@ -94,9 +116,9 @@ namespace Randolf.WordToolkit.Model
                 {
                     var bookmark = ranges[i].Bookmarks.Add(bookmarkNames[i], ranges[i]);
                     bookmarkList.Add(bookmark);
+                    
                 }
 
-            // insert bookmark
             foreach (var bookmark in bookmarkNames)
                 Globals.ThisAddIn.Application.Selection.Fields.Add(Globals.ThisAddIn.Application.Selection.Range,
                     WdFieldType.wdFieldRef, bookmark);
